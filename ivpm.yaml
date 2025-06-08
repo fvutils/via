@@ -1,0 +1,11 @@
+
+package:
+  name: via
+
+  dep-sets:
+  - name: default-dev
+    deps:
+    - name: dv-flow-mgr
+      url: https://github.com/dv-flow/dv-flow-mgr.git
+    - name: dv-flow-libhdlsim
+      url: https://github.com/dv-flow/dv-flow-libhdlsim.git

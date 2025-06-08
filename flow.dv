@@ -1,0 +1,19 @@
+
+package:
+  name: via
+
+  tasks:
+  - name: Pkg
+    uses: std.FileSet
+    with:
+      base: src
+      type: systemVerilogSource
+      include: "via.sv"
+
+  - name: UVMPkg
+    uses: std.FileSet
+    needs: [Pkg]
+    with:
+      base: src/uvm
+      type: systemVerilogSource
+      include: "via_uvm.sv"
