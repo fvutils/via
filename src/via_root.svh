@@ -24,7 +24,7 @@ class via_root;
 
     function void post_connect(via_component_if root);
         foreach (listeners[i]) begin
-            listeners[i].post_build(root);
+            listeners[i].post_connect(root);
         end
     endfunction
 

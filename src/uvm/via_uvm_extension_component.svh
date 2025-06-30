@@ -13,23 +13,52 @@ class via_uvm_extension_component extends uvm_component;
     endfunction
 
     function void connect_phase(uvm_phase phase);
-        via_uvm_component root;
-        uvm_component uvm_root = uvm_root::get();
+        via_uvm_component root_w;
+        uvm_component root_u = uvm_root::get();
         uvm_component children[$];
+        via_root root = via_root::get();
 
-        uvm_root.get_children(children);
+        root_u.get_children(children);
 
-        root = new(children[1]);
-        via_root::get().add_root(root);
+        foreach (children[i]) begin
+            $display("children[%0d] = %s", i, children[i].get_full_name());
+            if (children[i] != this) begin
+                root_w = new(children[i]);
+                $display("--> post_build");
+                root.post_build(root_w);
+                $display("<-- post_build");
+            end
+        end
 
     endfunction
 
     virtual task run_phase(uvm_phase phase);
+        via_uvm_component root_w;
+        uvm_component root_u = uvm_root::get();
+        uvm_component children[$];
+        via_root root = via_root::get();
 
-        super.run_phase(phase);
+        root_u.get_children(children);
+
+        foreach (children[i]) begin
+            if (children[i] != this) begin
+                root_w = new(children[i]);
+                root.post_connect(root_w);
+            end
+        end
+
         $display("Running via_uvm_extension_component");
-        via_root::get().run();
-        // Add your run phase code here
+        foreach (children[i]) begin
+            if (children[i] != this) begin
+                root_w = new(children[i]);
+                fork
+                    root.run(root_w);
+                join_none
+            end
+        end
+
+        wait fork;
+
     endtask
 
 
