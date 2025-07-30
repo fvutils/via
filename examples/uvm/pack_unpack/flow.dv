@@ -1,0 +1,24 @@
+package:
+  name: examples.uvm.pack_unpack
+
+  imports:
+  - ../../../flow.dv
+
+  tasks:
+  - name: src
+    uses: std.FileSet
+    with:
+      type: systemVerilogSource
+      include:
+      - pack_unpack.sv
+
+  - name: sim-img
+    needs: [via.UVMPkg, src, hdlsim.xsm.SimLibUVM]
+    uses: hdlsim.xsm.SimImage
+    with:
+      top: [top]
+  - name: run-sim
+    needs: [sim-img]
+    uses: hdlsim.xsm.SimRun
+
+
