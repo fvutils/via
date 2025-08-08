@@ -1,9 +1,30 @@
 
-class via_uvm_extension_component extends uvm_component;
+
+typedef class via_root;
+
+class via_uvm_extension_component extends uvm_component implements via_root_if;
     `uvm_component_utils(via_uvm_extension_component)
 
     function new(string name, uvm_component parent);
+        via_root root = via_root::get();
         super.new(name, parent);
+        root.add_root(this);
+    endfunction
+
+
+    virtual function void info(int level, string msg);
+        if (uvm_report_enabled(level, UVM_INFO, "")) begin
+            uvm_report_info("", msg, level);
+        end
+        $display("UVM Info: %0s", msg);
+    endfunction
+
+    virtual function void error(string msg);
+        $display("UVM Error: %0s", msg);
+    endfunction
+
+    virtual function void fatal(string msg);
+        $display("UVM Fatal: %0s", msg);
     endfunction
 
     function void build_phase(uvm_phase phase);
@@ -17,6 +38,8 @@ class via_uvm_extension_component extends uvm_component;
         uvm_component root_u = uvm_root::get();
         uvm_component children[$];
         via_root root = via_root::get();
+
+        $display("connect_phase");
 
         root_u.get_children(children);
 
@@ -38,12 +61,16 @@ class via_uvm_extension_component extends uvm_component;
         uvm_component children[$];
         via_root root = via_root::get();
 
+        $display("run_phase");
+
         root_u.get_children(children);
 
         foreach (children[i]) begin
             if (children[i] != this) begin
                 root_w = new(children[i]);
+                $display("--> post_connect");
                 root.post_connect(root_w);
+                $display("<-- post_connect");
             end
         end
 

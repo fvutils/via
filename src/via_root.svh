@@ -1,9 +1,9 @@
 
 typedef class via_component_if;
-typedef class via_root_if;
+typedef interface class via_root_if;
 typedef class via_root_listener_if;
 
-class via_root;
+class via_root implements via_root_if;
     static via_root inst;
     via_root_listener_if listeners[$];
     via_root_if roots[$];
@@ -23,8 +23,11 @@ class via_root;
     endfunction
 
     function void post_connect(via_component_if root);
+        $display("via_root::post_connect %0d", listeners.size());
         foreach (listeners[i]) begin
+            $display("--> listeners[%0d].post_connect", i);
             listeners[i].post_connect(root);
+            $display("<-- listeners[%0d].post_connect", i);
         end
     endfunction
 
@@ -38,6 +41,31 @@ class via_root;
 
         wait fork;
     endtask
+
+    virtual function void info(int level, string msg);
+        if (roots.size() > 0) begin
+            roots[0].info(level, msg);
+        end else begin
+            $display("VIA Info: %0s", msg);
+        end
+    endfunction
+
+    virtual function void error(string msg);
+        if (roots.size() > 0) begin
+            roots[0].error(msg);
+        end else begin
+            $display("VIA Error: %0s", msg);
+        end
+    endfunction
+
+    virtual function void fatal(string msg);
+        if (roots.size() > 0) begin
+            roots[0].fatal(msg);
+        end else begin
+            $display("VIA Fatal: %0s", msg);
+            $finish;
+        end
+    endfunction
 
     static function via_root get();
         if (inst == null) begin

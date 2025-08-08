@@ -7,6 +7,7 @@ package via_uvm;
   `include "via_uvm_classtype_factory.svh"
   `include "via_uvm_component.svh"
   `include "via_uvm_extension_component.svh"
+  `include "via_uvm_factory.svh"
   `include "via_uvm_object.svh"
   `include "via_uvm_object_type.svh"
 
