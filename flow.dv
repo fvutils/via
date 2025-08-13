@@ -9,6 +9,8 @@ package:
       base: src
       type: systemVerilogSource
       include: "via.sv"
+      incdirs:
+      - "."
 
   - name: UVMPkg
     uses: std.FileSet
@@ -17,3 +19,5 @@ package:
       base: src/uvm
       type: systemVerilogSource
       include: "via_uvm.sv"
+      incdirs: 
+      - "."

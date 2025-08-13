@@ -12,7 +12,7 @@ class via_uvm_object_type extends via_object_type_if;
         return m_type.get_type_name();
     endfunction
 
-    virtual function get_fields(via_field fields[$]);
+    virtual function void get_fields(via_field fields[$]);
         if (!m_fields_valid) begin
             uvm_object obj = m_type.create_object();
             populate_fields(obj.sprint());
@@ -23,7 +23,6 @@ class via_uvm_object_type extends via_object_type_if;
         foreach (m_fields[i]) begin
             fields.push_back(m_fields[i]);
         end
-
     endfunction
 
     function int strchr(string str, byte c, int start=0);

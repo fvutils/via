@@ -1,7 +1,5 @@
 
 
-typedef class via_root;
-
 class via_uvm_extension_component extends uvm_component implements via_root_if;
     `uvm_component_utils(via_uvm_extension_component)
 

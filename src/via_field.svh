@@ -5,6 +5,10 @@ class via_field;
     function new(string name);
         this.name = name;
     endfunction
+
+    function string get_name();
+        return name;
+    endfunction
 endclass
 
 class via_field_int extends via_field;
