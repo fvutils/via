@@ -12,10 +12,12 @@ class via_uvm_object_type extends via_object_type_if;
         return m_type.get_type_name();
     endfunction
 
-    virtual function void get_fields(via_field fields[$]);
+    virtual function void get_fields(ref via_field fields[$]);
         if (!m_fields_valid) begin
             uvm_object obj = m_type.create_object();
             populate_fields(obj.sprint());
+
+            $display("post-populate: %0d", m_fields.size());
 
             m_fields_valid = 1'b1;
         end
@@ -90,6 +92,7 @@ class via_uvm_object_type extends via_object_type_if;
                 string field_name = tokens[0];
                 int size;
 
+                // Distinguish string, int, list, array, object
                 // Skip class line (contains "-" for size)
                 if (tokens[2] == "-") continue;
 
@@ -98,7 +101,7 @@ class via_uvm_object_type extends via_object_type_if;
 
                 // Create and add field
                 begin
-                    via_field_int field = new(field_name, size, 0); // Assuming unsigned for now
+                    via_field field = new(field_name, FIELD_KIND_INT, size, 0); // Assuming unsigned for now
                     $display("Field: %0s, %0d", field_name, size);
                     m_fields.push_back(field);
                 end

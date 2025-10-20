@@ -7,7 +7,7 @@ class via_object_type_if;
     virtual function string get_name();
     endfunction
 
-    virtual function void get_fields(via_field fields[$]);
+    virtual function void get_fields(ref via_field fields[$]);
     endfunction
 
 endclass

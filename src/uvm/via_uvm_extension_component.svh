@@ -1,4 +1,5 @@
 
+typedef class via_uvm_factory;
 
 class via_uvm_extension_component extends uvm_component implements via_root_if;
     `uvm_component_utils(via_uvm_extension_component)
@@ -26,6 +27,17 @@ class via_uvm_extension_component extends uvm_component implements via_root_if;
     endfunction
 
     function void build_phase(uvm_phase phase);
+        // uvm_coreservice_t s;
+        // uvm_factory core;
+        // via_uvm_factory new_factory;
+
+        // s = uvm_coreservice_t::get();
+        // core = s.get_factory();
+        // new_factory = new(core);
+
+        // // Insert our factory 
+        // s.set_factory(new_factory);
+
         super.build_phase(phase);
         $display("Building via_uvm_extension_component");
         // Add your build phase code here

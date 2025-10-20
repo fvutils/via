@@ -25,4 +25,12 @@ class via_uvm_object extends via_object_if;
         return t_if;
     endfunction
 
+    virtual function int pack_ints(ref int unsigned intstream[]);
+        return obj.pack_ints(intstream);
+    endfunction
+
+    virtual function int unpack_ints(ref int unsigned intstream[]);
+        return obj.unpack_ints(intstream);
+    endfunction
+
 endclass
