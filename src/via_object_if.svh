@@ -1,25 +1,18 @@
 
-typedef class via_object_type_if;
-typedef class via_accept_if;
+typedef interface class via_object_type_if;
+typedef interface class via_accept_if;
 typedef class via_visitor;
 
-class via_object_if extends via_accept_if;
+interface class via_object_if extends via_accept_if;
 
-    virtual function string get_name();
-    endfunction
+    pure virtual function string get_name();
 
-    virtual function via_object_type_if get_object_type();
-    endfunction
+    pure virtual function via_object_type_if get_object_type();
 
-    virtual function int pack_ints(ref int unsigned intstream[]);
-    endfunction
+    pure virtual function int pack_ints(ref int unsigned intstream[]);
 
-    virtual function int unpack_ints(ref int unsigned intstream[]);
-    endfunction
+    pure virtual function int unpack_ints(ref int unsigned intstream[]);
 
-    virtual function void accept(via_visitor v);
-        v.visit_object(this);
-    endfunction
 
 endclass
 

@@ -56,7 +56,8 @@ class via_uvm_extension_component extends uvm_component implements via_root_if;
         foreach (children[i]) begin
             $display("children[%0d] = %s", i, children[i].get_full_name());
             if (children[i] != this) begin
-                root_w = new(children[i]);
+                // TODO: need to go back to factory to establish type
+                root_w = new(children[i], null);
                 $display("--> post_build");
                 root.post_build(root_w);
                 $display("<-- post_build");
@@ -77,7 +78,8 @@ class via_uvm_extension_component extends uvm_component implements via_root_if;
 
         foreach (children[i]) begin
             if (children[i] != this) begin
-                root_w = new(children[i]);
+                // TODO:
+                root_w = new(children[i], null);
                 $display("--> post_connect");
                 root.post_connect(root_w);
                 $display("<-- post_connect");
@@ -87,7 +89,8 @@ class via_uvm_extension_component extends uvm_component implements via_root_if;
         $display("Running via_uvm_extension_component");
         foreach (children[i]) begin
             if (children[i] != this) begin
-                root_w = new(children[i]);
+                // TODO:
+                root_w = new(children[i], null);
                 fork
                     root.run(root_w);
                 join_none

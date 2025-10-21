@@ -1,11 +1,13 @@
 
 class via_uvm_object_type extends via_object_type_if;
     uvm_object_wrapper      m_type;
+    via_uvm_object_factory  m_if_factory;
     via_field               m_fields[$];
     bit                     m_fields_valid;
 
-    function new(uvm_object_wrapper t);
+    function new(uvm_object_wrapper t, via_uvm_object_factory if_f);
         m_type = t;
+        m_if_factory = if_f;
     endfunction
 
     virtual function string get_name();
@@ -108,6 +110,10 @@ class via_uvm_object_type extends via_object_type_if;
             end
             count += 1;
         end
+    endfunction
+
+    function via_uvm_object create(uvm_object obj);
+        return m_if_factory.create(obj, this);
     endfunction
 
 

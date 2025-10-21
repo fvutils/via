@@ -1,6 +1,6 @@
 
 typedef interface class via_factory_if;
-typedef class via_object_if;
+typedef interface class via_object_if;
 
 // Defines the interface between an environment and its roots
 interface class via_root_if;

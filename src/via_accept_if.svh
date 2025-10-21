@@ -1,9 +1,8 @@
 
 typedef class via_visitor;
 
-class via_accept_if;
+interface class via_accept_if;
 
-    virtual function void accept(via_visitor v);
-    endfunction
+    pure virtual function void accept(via_visitor v);
 
 endclass

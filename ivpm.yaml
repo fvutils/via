@@ -9,5 +9,9 @@ package:
       url: https://github.com/dv-flow/dv-flow-mgr.git
     - name: dv-flow-libhdlsim
       url: https://github.com/dv-flow/dv-flow-libhdlsim.git
+    - name: pytest-dfm
+      url: https://github.com/dv-flow/pytest-dfm.git
     - name: uvm
       url: https://www.accellera.org/images/downloads/standards/uvm/uvm-1.2.tar.gz
+    - name: pytest
+      src: pypi

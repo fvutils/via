@@ -1,6 +1,6 @@
 
-typedef class via_component_if;
-typedef class via_object_if;
+typedef interface class via_component_if;
+typedef interface class via_object_if;
 
 class via_visitor;
 
