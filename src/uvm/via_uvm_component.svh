@@ -2,6 +2,7 @@
 typedef class via_uvm_object;
 typedef class via_uvm_object_factory;
 typedef class via_uvm_object_type;
+typedef class via_uvm_type_rgy;
 
 class via_uvm_component extends via_uvm_object implements via_component_if;
 
@@ -26,7 +27,7 @@ class via_uvm_component extends via_uvm_object implements via_component_if;
         obj = comp.create_object(typename, name);
 
         if (obj != null) begin
-            ret = new(obj, m_type);
+            ret = via_uvm_type_rgy::inst().create(obj);
         end
 
         return ret;

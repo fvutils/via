@@ -2,6 +2,13 @@
 `include "via_macros.svh"
 
 package via;
+    typedef enum {
+        VIA_KIND_OBJECT,
+        VIA_KIND_COMPONENT,
+        VIA_KIND_SEQUENCE,
+        VIA_KIND_SEQUENCER
+    } via_kind_e;
+
     `include "via_accept_if.svh"
     `include "via_object_if.svh"
     `include "via_component_if.svh"

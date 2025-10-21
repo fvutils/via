@@ -4,7 +4,7 @@ class via_uvm_object implements via_object_if;
     via_uvm_object_type     m_type;
 
     function new(uvm_object obj, via_uvm_object_type obj_t);
-        m_obj = m_obj;
+        m_obj = obj;
         m_type = obj_t;
     endfunction
 

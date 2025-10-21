@@ -2,14 +2,12 @@
 typedef class via_field;
 typedef interface class via_object_if;
 
-class via_object_type_if;
-    via_field fields[$];
+interface class via_object_type_if;
 
-    virtual function string get_name();
-        return "";
-    endfunction
+    pure virtual function string get_name();
 
-    virtual function void get_fields(ref via_field fields[$]);
-    endfunction
+    pure virtual function via_kind_e get_kind();
+
+    pure virtual function void get_fields(ref via_field fields[$]);
 
 endclass

@@ -1,6 +1,7 @@
 
 typedef interface class via_object_type_if;
 typedef interface class via_accept_if;
+typedef class via_field;
 typedef class via_visitor;
 
 interface class via_object_if extends via_accept_if;
