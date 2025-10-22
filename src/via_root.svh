@@ -25,9 +25,9 @@ class via_root implements via_root_if;
     function void post_connect(via_component_if root);
         $display("via_root::post_connect %0d", listeners.size());
         foreach (listeners[i]) begin
-            $display("--> listeners[%0d].post_connect", i);
+//            $display("--> listeners[%0d].post_connect", i);
             listeners[i].post_connect(root);
-            $display("<-- listeners[%0d].post_connect", i);
+//            $display("<-- listeners[%0d].post_connect", i);
         end
     endfunction
 

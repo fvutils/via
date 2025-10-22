@@ -5,9 +5,41 @@ typedef class via_uvm_object_type;
 typedef class via_uvm_sequence_factory;
 typedef class via_uvm_sequencer;
 
+class factory_print_catcher extends uvm_report_catcher;
+    string  factory_print;
+
+    function new(string name="factory_print_catcher");
+        super.new(name);
+    endfunction
+
+    //This example demotes "MY_ID" errors to an info message
+    function action_e catch();
+        factory_print = get_message();
+
+        // Suppress the message
+        return CAUGHT;
+    endfunction
+endclass
+
 class via_uvm_type_rgy;
     static via_uvm_type_rgy     m_inst;
     via_uvm_object_type         m_obj_type_m[uvm_object_wrapper];
+
+    function void init();
+        factory_print_catcher catcher = new;
+        uvm_factory factory = uvm_factory::get();
+//        custom_report_server custom = new();
+
+        // Attach our custom report catcher so we can 
+        // save the message printed by factory.print()
+        uvm_report_cb::add(null, catcher);
+
+        $display("--> print");
+        factory.print();
+        $display("<-- print\n%0s", catcher.factory_print);
+
+        uvm_report_cb::delete(null, catcher);
+    endfunction
 
     virtual function via_uvm_object_type get_object_type(uvm_object obj);
         uvm_object_wrapper t = obj.get_object_type();
@@ -169,6 +201,7 @@ class via_uvm_type_rgy;
     static function via_uvm_type_rgy inst();
         if (m_inst == null) begin
             m_inst = new();
+            m_inst.init();
         end
         return m_inst;
     endfunction
